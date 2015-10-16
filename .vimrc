@@ -27,19 +27,49 @@ call vundle#end()
 """"""""""""""""""
 " Theme Settings "
 """"""""""""""""""
-set background=dark
-colorscheme solarized
+colorscheme ColorZone
 filetype plugin on
 syntax on
+
+""""""""""""""""""""""""""""""
+"" files, backups and undo
+""""""""""""""""""""""""""""""
+
+" Turn backup off, since most stuff is in source control
+set nobackup
+set nowb
+set noswapfile
+
+""""""""""""""""""""""""""""""
+"" mouse
+""""""""""""""""""""""""""""""
+
+set mouse=a
+set ttym=xterm2
+
+""""""""""""""""""""""""""""""
+"" keyboard
+""""""""""""""""""""""""""""""
+
+" <Ctrl-C> -- copy selected to system clipboard (see: http://vim.wikia.com/wiki/Quick_yank_and_paste)
+vmap <C-C> "*y
+
+" <Ctrl-A> -- visually select all and copy to system clipboard
+map <C-A> ggvG$"*y<C-o><C-o>
+
+" ,cp copies path to clipboard
+nmap <leader>cp :let @" = expand("%:p")<cr><cr>
+
 
 """""""""""""""""""""
 " Setup vim-airline "
 """""""""""""""""""""
 set laststatus=2
 let g:airline_powerline_fonts = 1
-let g:airline_theme='badwolf'
+let g:airline_theme='kalisi'
 
-set guifont=Meslo\ LG\ S\ for\ Powerline
+"set guifont=Meslo\ LG\ S\ for\ Powerline
+set guifont=Ubuntu\ Mono\ derivative\ Powerline:h14
 
 filetype plugin indent on 
 :
