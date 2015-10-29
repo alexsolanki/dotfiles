@@ -94,16 +94,16 @@
 # EOF
 
 cluster iad2-line-reciever
-    any_of<% (20..35).each do |i| -%> <%= @local_relay -%>:<%= i -%>03<% end -%>;
+    any_of<% (20..35).each do |i| -%> <%= @local_cache -%>:<%= i -%>03<% end -%>;
 
 cluster iad2-pickle-reciever
-    any_of<% (20..35).each do |i| -%> <%= @local_relay -%>:<%= i -%>04<% end -%>;
+    any_of<% (20..35).each do |i| -%> <%= @local_cache -%>:<%= i -%>04<% end -%>;
 
 cluster las1-line-reciever
-    any_of<% (20..35).each do |i| -%> <%= @remote_relay -%>:<%= i -%>03<% end -%>;
+    any_of<% (20..35).each do |i| -%> <%= @remote_cache -%>:<%= i -%>03<% end -%>;
 
 cluster las1-pickle-reciever
-    any_of<% (20..35).each do |i| -%> <%= @remote_relay -%>:<%= i -%>04<% end -%>;
+    any_of<% (20..35).each do |i| -%> <%= @remote_cache -%>:<%= i -%>04<% end -%>;
 
 match *
     send to iad2-line-reciever
