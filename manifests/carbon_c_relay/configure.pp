@@ -25,8 +25,8 @@ class int_graphite::carbon_c_relay::configure (
       notify => Service['carbon-c-relay'],;
   }
 
-  service { carbon-c-relay:
-    hasrestart => false,
-    hasstatus => false,
+  service { 'carbon-c-relay':
+    ensure  => 'running',
+    enabled => true,
   }
 }
