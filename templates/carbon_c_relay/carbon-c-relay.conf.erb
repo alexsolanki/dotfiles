@@ -93,22 +93,22 @@
 #
 # EOF
 
-cluster iad2-line-reciever
-    any_of<% (20..35).each do |i| -%> <%= @local_cache -%>:<%= i -%>03<% end -%>;
+cluster local-line-reciever
+    any_of<% (@port_start..@port_end).each do |i| -%> <%= @local_cache -%>:<%= i -%>03<% end -%>;
 
-cluster iad2-pickle-reciever
-    any_of<% (20..35).each do |i| -%> <%= @local_cache -%>:<%= i -%>04<% end -%>;
+cluster local-pickle-reciever
+    any_of<% (@port_start..@port_end).each do |i| -%> <%= @local_cache -%>:<%= i -%>04<% end -%>;
 
-cluster las1-line-reciever
-    any_of<% (20..35).each do |i| -%> <%= @remote_cache -%>:<%= i -%>03<% end -%>;
+cluster remote-line-reciever
+    any_of<% (@port_start..@port_end).each do |i| -%> <%= @remote_cache -%>:<%= i -%>03<% end -%>;
 
-cluster las1-pickle-reciever
-    any_of<% (20..35).each do |i| -%> <%= @remote_cache -%>:<%= i -%>04<% end -%>;
+cluster remote-pickle-reciever
+    any_of<% (@port_start..@port_end).each do |i| -%> <%= @remote_cache -%>:<%= i -%>04<% end -%>;
 
 match *
-    send to iad2-line-reciever
+    send to local-line-reciever
     ;
 match *
-    send to las1-line-reciever
+    send to remote-line-reciever
     ;
 
