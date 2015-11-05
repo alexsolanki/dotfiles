@@ -7,8 +7,8 @@ class int_graphite::carbon_c_relay::configure (
   $local_cache           = $::int_graphite::params::local_cache,
   $remote_cache          = $::int_graphite::params::remote_cache,
   $port_start            = $::int_graphite::params::port_start,
-  $port_end              = $::int_graphite::params::port_end
-  $carbon_c_relay_state  = $::int_graphite::params::carbon_c_relay_state
+  $port_end              = $::int_graphite::params::port_end,
+  $carbon_c_relay_state  = $::int_graphite::params::carbon_c_relay_state,
   $carbon_c_relay_enable = $::int_graphite::params::carbon_c_relay_enable
 ) inherits int_graphite::params {
 
