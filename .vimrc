@@ -3,7 +3,7 @@
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 
-
+set switchbuf=usetab
 call vundle#begin()
 
 	" Brief help
@@ -37,29 +37,18 @@ syntax on
 
 " Turn backup off, since most stuff is in source control
 set nobackup
-set nowb
 set noswapfile
 
 """"""""""""""""""""""""""""""
 "" mouse
 """"""""""""""""""""""""""""""
-
 set mouse=a
 set ttym=xterm2
 
 """"""""""""""""""""""""""""""
-"" keyboard
+"" clipboard
 """"""""""""""""""""""""""""""
-
-" <Ctrl-C> -- copy selected to system clipboard (see: http://vim.wikia.com/wiki/Quick_yank_and_paste)
-vmap <C-C> "*y
-
-" <Ctrl-A> -- visually select all and copy to system clipboard
-map <C-A> ggvG$"*y<C-o><C-o>
-
-" ,cp copies path to clipboard
-nmap <leader>cp :let @" = expand("%:p")<cr><cr>
-
+set clipboard=unnamedplus,unnamed,autoselect
 
 """""""""""""""""""""
 " Setup vim-airline "
@@ -73,9 +62,6 @@ set guifont=Ubuntu\ Mono\ derivative\ Powerline:h14
 
 filetype plugin indent on 
 :
-set nocompatible              " be iMproved, required
-set clipboard=unnamed
-
 set number
 set ruler
 set ignorecase

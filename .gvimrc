@@ -12,20 +12,21 @@ set columns=115
 map <C-n> :NERDTreeToggle<CR>
 
 
+
 " open Nerd Tree in folder of file in active buffer
-"cd /Users/asolanki/trp/syseng/
-"map <Leader>nt :NERDTree %:p:h<CR>
+cd /Users/asolanki/trp/git/puppet_production/modules
+map <Leader>nt :NERDTree %:p:h<CR>
 
 " Close all open buffers on entering a window if the only
 " buffer that's left is the NERDTree buffer
 
-"autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
-"function! s:CloseIfOnlyNerdTreeLeft()
- " if exists("t:NERDTreeBufName")
-  "  if bufwinnr(t:NERDTreeBufName) != -1
-   "   if winnr("$") == 1
-    "    q
-     " endif
-   " endif
- " endif
-"endfunction
+autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
+function! s:CloseIfOnlyNerdTreeLeft()
+  if exists("t:NERDTreeBufName")
+    if bufwinnr(t:NERDTreeBufName) != -1
+      if winnr("$") == 1
+        q
+      endif
+    endif
+  endif
+endfunction

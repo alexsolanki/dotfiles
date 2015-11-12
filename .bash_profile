@@ -15,9 +15,10 @@ alias ls='ls -rtFG'
 alias ll='ls -lrtFG'
 alias la='ls -lrtFG'
 
+alias mvim='/usr/local/Cellar/macvim/7.4-74/bin/mvim'
+alias mvim='mvim --remote-silent-tab'
 alias vi='mvim'
 alias vim='mvim'
-alias mvim='mvim --remote-silent-tab'
 
 # Functions
 function h() { if [ $1 == "--all" ]; then search='^f.*-'; domain=$2; else search='^f.{27,28}$'; domain=$1; fi; host -la ${domain}.fanops.net | awk -F" " '{print $1}' | sed -e 's/\.$//g' | egrep ${search} ;}
