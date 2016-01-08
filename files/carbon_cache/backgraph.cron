@@ -1,0 +1,3 @@
+MAILTO=""
+# Backup Graphite whisper files once per day (note, will refuse to run on LAS1-side pair nodes)
+0 0 * * * root /opt/graphite/bin/backgraph.sh
