@@ -140,26 +140,24 @@ WHISPER_AUTOFLUSH = False
 MAX_CACHE_SIZE = inf
 MAX_UPDATES_PER_SECOND = inf
 
-[cache:b]
-LINE_RECEIVER_PORT = 2103
-PICKLE_RECEIVER_PORT = 2104
-CACHE_QUERY_PORT = 7102
+<% current_port = port_start -%>
+<% current_letter = "a" -%>
+<% current_linkport = "7002" -%>
+<% current_port +1- -%>
+<% current_letter = current_letter.next -%>
+<% current_linkport += 100 -%>
+<% loop do -%>
+[cache:<%= current_letter -%>]
+LINE_RECEIVER_PORT = <%= current_port -%>03
+PICKLE_RECEIVER_PORT = <%= current_port -%>04
+CACHE_QUERY_PORT = <%= current_linkport -%>
 MAX_CACHE_SIZE = inf
 MAX_UPDATES_PER_SECOND = inf
-
-[cache:c]
-LINE_RECEIVER_PORT = 2203
-PICKLE_RECEIVER_PORT = 2204
-CACHE_QUERY_PORT = 7202
-MAX_CACHE_SIZE = inf
-MAX_UPDATES_PER_SECOND = inf
-
-[cache:d]
-LINE_RECEIVER_PORT = 2303
-PICKLE_RECEIVER_PORT = 2304
-CACHE_QUERY_PORT = 7302
-MAX_CACHE_SIZE = inf
-MAX_UPDATES_PER_SECOND = inf
+<% current_port += 1 -%>
+<% current_letter = current_letter.next -%>
+<% current_linkport += 100 -%>
+<% break if current_port > port_end -%>
+<% end %>
 
 [relay]
 LINE_RECEIVER_INTERFACE = 0.0.0.0
@@ -190,7 +188,14 @@ REPLICATION_FACTOR = 1
 # Note that if the destinations are all carbon-caches then this should
 # exactly match the webapp's CARBONLINK_HOSTS setting in terms of
 # instances listed (order matters!).
-DESTINATIONS = 127.0.0.1:2004:a, 127.0.0.1:2104:b, 127.0.0.1:2204:c, 127.0.0.1:2304:d
+DESTINATIONS = <% current_port = port_start -%>
+<% current_letter = "a" -%>
+<% loop do -%>
+127.0.0.1:<%= current_port -%>04:<%= current_letter -%>,
+  <% current_port += 1 -%>
+  <% current_letter = current_letter.next -%>
+  <% break if current_port > port_end -%>
+<% end %>
 
 # This defines the maximum "message size" between carbon daemons.
 # You shouldn't need to tune this unless you really know what you're doing.
@@ -224,7 +229,14 @@ PICKLE_RECEIVER_PORT = 2024
 # Note that if the destinations are all carbon-caches then this should
 # exactly match the webapp's CARBONLINK_HOSTS setting in terms of
 # instances listed (order matters!).
-DESTINATIONS = 127.0.0.1:2004:a, 127.0.0.1:2104:b, 127.0.0.1:2204:c, 127.0.0.1:2304:d
+DESTINATIONS = <% current_port = port_start -%>
+<% current_letter = "a" -%>
+<% loop do -%>
+127.0.0.1:<%= current_port -%>04:<%= current_letter -%>,
+  <% current_port += 1 -%>
+  <% current_letter = current_letter.next -%>
+  <% break if current_port > port_end -%>
+<% end %>
 
 # If you want to add redundancy to your data by replicating every
 # datapoint to more than one machine, increase this.

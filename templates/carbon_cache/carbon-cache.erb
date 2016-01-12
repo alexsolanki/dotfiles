@@ -52,10 +52,14 @@ RETVAL=0
 start() {
 	echo -n $"Starting carbon-cache daemon: "
 	cd $DIRECTORY
-	LAUNCH --instance=a start
-	LAUNCH --instance=b start
-        LAUNCH --instance=c start
-        LAUNCH --instance=d start
+<% current_port = port_start -%>
+<% current_letter = "a" -%>
+<% loop do -%>
+        LAUNCH --instance=<%= current_letter -%> start
+  <% current_port += 1 %>
+  <% current_letter = current_letter.next -%>
+  <% break if current_port > port_end -%>
+<% end %>
 	RETVAL=$?
 	echo
 	[ $RETVAL -eq 0 ] && touch /var/lock/subsys/$SERVICE
@@ -65,10 +69,14 @@ start() {
 stop() {
 	echo -n $"Stopping carbon-cache daemon: "
 	cd $DIRECTORY
-	LAUNCH --instance=a stop
-	LAUNCH --instance=b stop
-        LAUNCH --instance=c stop
-        LAUNCH --instance=d stop
+<% current_port = port_start -%>
+<% current_letter = "a" -%>
+<% loop do -%>
+        LAUNCH --instance=<%= current_letter -%> stop
+  <% current_port += 1 -%>
+  <% current_letter = current_letter.next -%>
+  <% break if current_port > port_end -%>
+<% end %>
 	RETVAL=$?
 	echo
 	if [ $RETVAL -eq 0 ]; then
@@ -79,10 +87,14 @@ stop() {
 
 status() {
   cd $DIRECTORY
-  LAUNCH --instance=a status
-  LAUNCH --instance=b status
-  LAUNCH --instance=c status
-  LAUNCH --instance=d status
+<% current_port = port_start -%>
+<% current_letter = "a" -%>
+<% loop do -%>
+        LAUNCH --instance=<%= current_letter -%> status
+  <% current_port += 1 -%>
+  <% current_letter = current_letter.next -%>
+  <% break if current_port > port_end -%>
+<% end %>
   STAT=`LAUNCH status`
   if [[ $STAT == *with* ]]; then
     RETVAL=0
