@@ -1,4 +1,0 @@
-In progress:
-- clean up / simplify ERB templates
-- write logic for port assignments for init script and other templated configs
-- set up service subscribes as needed for other resources to ensure restarts
