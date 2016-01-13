@@ -5,6 +5,7 @@
 #
 class int_graphite::carbon_cache::configure (
   $carbon_cache_httpd_sysconfig_state = $::int_graphite::params::carbon_cache_httpd_sysconfig_state
+  $carbon_cache_ramdisk_mb = hiera('int_graphite::params::carbon_cache_ramdisk_mb')
 ) inherits int_graphite::params {
 
   # File resource defaults

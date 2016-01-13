@@ -11,7 +11,6 @@ class int_graphite::params {
   $port_end                = hiera('int_graphite::params::port_end')
   $carbon_c_relay_state    = hiera('int_graphite::params::carbon_c_relay_state')
   $carbon_c_relay_enable   = hiera('int_graphite::params::carbon_c_relay_enable')
-  $carbon_cache_ramdisk_mb = hiera('int_graphite::params::carbon_cache_ramdisk_mb')
 
   # OS-based variables (see hieradata/operatingsystem)
   $carbon_cache_version          = hiera('int_graphite::params::carbon_cache_version')
