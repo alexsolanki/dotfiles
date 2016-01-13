@@ -22,13 +22,13 @@ class int_graphite::carbon_cache::runtime () inherits int_graphite::params {
     'carbon-cache':
       hasrestart => false,
       hasstatus  => false,
-      subscribe  => $carbon_cache_daemon_subscribe;
+      subscribe  => File[$carbon_cache_daemon_subscribe];
     'carbon-relay':
       ensure     => stopped,
       enable     => false;
     'httpd':
       ensure     => running,
-      subscribe  => $carbon_cache_httpd_subscribe;
+      subscribe  => File[$carbon_cache_httpd_subscribe];
     'memcached':
       ensure     => stopped,
       enable     => false;

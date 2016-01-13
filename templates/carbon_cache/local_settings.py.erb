@@ -96,15 +96,12 @@ CLUSTER_SERVERS = ['127.0.0.1:80']
 # You *should* use 127.0.0.1 here.
 #CARBONLINK_HOSTS = ["127.0.0.1:7002:a", "127.0.0.1:7102:b", "127.0.0.1:7202:c"]
 CARBONLINK_HOSTS = [
-<% current_port = port_start -%>
+<% current_port = port_start.to_i -%>
+<% last_port    = port_end.to_i -%>
 <% current_letter = "a" -%>
-<% current_linkport = "7002" -%>
+<% current_linkport = 7002 -%>
 <% loop do -%>
-'127.0.0.1:<%= current_linkport -%>:<%= current_letter -%>',
-  <% current_port += 1 -%>
-  <% current_letter = current_letter.next -%>
-  <% current_linkport += 100 -%>
-  <% break if current_port > port_end -%>
+'127.0.0.1:<%= current_linkport -%>:<%= current_letter -%>',<% current_port += 1 -%><% current_letter = current_letter.next -%><% current_linkport += 100 -%><% break if current_port > last_port -%>
 <% end %>
 ]
 
