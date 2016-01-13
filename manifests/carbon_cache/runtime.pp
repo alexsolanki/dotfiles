@@ -4,8 +4,8 @@
 #  Runtime management for graphite carbon-cache
 #
 class int_graphite::carbon_cache::runtime (
-  $carbon_cache_daemon_subscribe = $::int_graphite::params::carbon_cache_daemon_subscribe
-  $carbon_cache_httpd_subscribe  = $::int_graphite::params::carbon_cache_httpd_subscribe
+  $carbon_cache_daemon_subscribe = ['/opt/graphite/conf/storage-aggregation.conf', '/opt/graphite/conf/storage-schemas.conf', '/etc/security/limits.d/graphite_storage.conf', '/etc/init.d/carbon-cache', '/opt/graphite/conf/carbon.conf', ]
+  $carbon_cache_httpd_subscribe  = ['/etc/sysconfig/httpd', '/etc/httpd/conf/httpd.conf', '/etc/httpd/conf.d/auth_kerb.conf', '/etc/httpd/conf.d/graphite.conf', '/etc/httpd/conf.d/ssl.conf', '/etc/pki/tls/private/localhost.key', '/etc/pki/tls/certs/localhost.crt', '/opt/graphite/webapp/graphite/local_settings.py', ]
 ) inherits int_graphite::params {
 
   # Service defaults:
