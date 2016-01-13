@@ -3,9 +3,10 @@
 # Actions:
 #  Configuration class for graphite carbon-cache
 #
-class int_graphite::carbon_cache::configure (
+class int_graphite::carbon_cache::configure () inherits int_graphite::params {
+
+  # Variables
   $carbon_cache_httpd_sysconfig_state = hiera('int_graphite::params::carbon_cache_httpd_sysconfig_state')
-) inherits int_graphite::params {
 
   # File resource defaults
   File {
