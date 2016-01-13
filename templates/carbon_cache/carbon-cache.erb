@@ -52,13 +52,14 @@ RETVAL=0
 start() {
 	echo -n $"Starting carbon-cache daemon: "
 	cd $DIRECTORY
-<% current_port = port_start -%>
+<% current_port = port_start.to_i -%>
+<% last_port    = port_end.to_i -%>
 <% current_letter = "a" -%>
 <% loop do -%>
         LAUNCH --instance=<%= current_letter -%> start
   <% current_port += 1 %>
   <% current_letter = current_letter.next -%>
-  <% break if current_port > port_end -%>
+  <% break if current_port > last_port -%>
 <% end %>
 	RETVAL=$?
 	echo
@@ -69,13 +70,14 @@ start() {
 stop() {
 	echo -n $"Stopping carbon-cache daemon: "
 	cd $DIRECTORY
-<% current_port = port_start -%>
+<% current_port = port_start.to_i -%>
+<% last_port    = port_end.to_i -%>
 <% current_letter = "a" -%>
 <% loop do -%>
         LAUNCH --instance=<%= current_letter -%> stop
   <% current_port += 1 -%>
   <% current_letter = current_letter.next -%>
-  <% break if current_port > port_end -%>
+  <% break if current_port > last_port -%>
 <% end %>
 	RETVAL=$?
 	echo
@@ -87,13 +89,14 @@ stop() {
 
 status() {
   cd $DIRECTORY
-<% current_port = port_start -%>
+<% current_port = port_start.to_i -%>
+<% last_port    = port_end.to_i -%>
 <% current_letter = "a" -%>
 <% loop do -%>
         LAUNCH --instance=<%= current_letter -%> status
   <% current_port += 1 -%>
   <% current_letter = current_letter.next -%>
-  <% break if current_port > port_end -%>
+  <% break if current_port > last_port -%>
 <% end %>
   STAT=`LAUNCH status`
   if [[ $STAT == *with* ]]; then
