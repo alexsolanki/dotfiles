@@ -57,9 +57,9 @@ start() {
 <% current_letter = "a" -%>
 <% loop do -%>
         LAUNCH --instance=<%= current_letter -%> start
-  <% current_port += 1 %>
-  <% current_letter = current_letter.next -%>
-  <% break if current_port > last_port -%>
+<% current_port += 1 %>
+<% current_letter = current_letter.next -%>
+<% break if current_port > last_port -%>
 <% end %>
 	RETVAL=$?
 	echo
@@ -75,9 +75,9 @@ stop() {
 <% current_letter = "a" -%>
 <% loop do -%>
         LAUNCH --instance=<%= current_letter -%> stop
-  <% current_port += 1 -%>
-  <% current_letter = current_letter.next -%>
-  <% break if current_port > last_port -%>
+<% current_port += 1 -%>
+<% current_letter = current_letter.next -%>
+<% break if current_port > last_port -%>
 <% end %>
 	RETVAL=$?
 	echo
@@ -94,9 +94,9 @@ status() {
 <% current_letter = "a" -%>
 <% loop do -%>
         LAUNCH --instance=<%= current_letter -%> status
-  <% current_port += 1 -%>
-  <% current_letter = current_letter.next -%>
-  <% break if current_port > last_port -%>
+<% current_port += 1 -%>
+<% current_letter = current_letter.next -%>
+<% break if current_port > last_port -%>
 <% end %>
   STAT=`LAUNCH status`
   if [[ $STAT == *with* ]]; then

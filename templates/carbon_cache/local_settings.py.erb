@@ -101,11 +101,7 @@ CARBONLINK_HOSTS = [
 <% current_letter = "a" -%>
 <% current_linkport = 7002 -%>
 <% loop do -%>
-'127.0.0.1:<%= current_linkport -%>:<%= current_letter -%>',
-  <% current_port += 1 -%>
-  <% current_letter = current_letter.next -%>
-  <% current_linkport += 100 -%>
-  <% break if current_port > last_port -%>
+'127.0.0.1:<%= current_linkport -%>:<%= current_letter -%>',<% current_port += 1 -%><% current_letter = current_letter.next -%><% current_linkport += 100 -%><% break if current_port > last_port -%>
 <% end %>
 ]
 
