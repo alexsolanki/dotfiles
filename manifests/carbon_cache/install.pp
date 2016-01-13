@@ -9,7 +9,7 @@ class int_graphite::carbon_cache::install () inherits int_graphite::params {
   $carbon_cache_packages         = hiera('int_graphite::params::carbon_cache_packages')
   $carbon_cache_package_requires = hiera('int_graphite::params::carbon_cache_package_requires')
   $carbon_cache_version          = hiera('int_graphite::params::carbon_cache_version')
- 
+
   # Packages 
   package { $carbon_cache_package_requires :
       ensure  => present,
