@@ -28,8 +28,8 @@ class int_graphite::carbon_cache::prepare () inherits int_graphite::params {
   }
   file { '/ramdisk/whisper' :
       ensure  => directory,
-      owner   => root,
-      group   => root,
+      owner   => '48',
+      group   => '48',
       mode    => '0755',
       require => [ Mount['/ramdisk'], ],
   }
