@@ -1,0 +1,6 @@
+# INFRA-1141 - Address Graphite performance in SJC1 
+MAILTO=""
+# Check every ten minutes that carbon-cache recieving more than 50% of metrics reported by carbon-relay, restart both if not
+*/1 * * * * root /opt/graphite/bin/carbon-babysitter >> /opt/graphite/storage/log/carbon-babysitter
+# Once per year, purge that log file to prevent excessive growth
+9 0 1 1 * root /bin/rm -f /opt/graphite/storage/log/carbon-babysitter
