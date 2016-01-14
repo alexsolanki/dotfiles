@@ -1,0 +1,121 @@
+#!/bin/sh
+# LSB header
+
+### BEGIN INIT INFO
+# Provides: carbon-cache
+# Required-Start: network
+# Required-Stop:
+# Default-Start: 3 4 5
+# Default-Stop: 0 1 2 6
+# Short-Description: carbon-cache
+# Description: carbon-cache
+### END INIT INFO
+
+# chkconfig header
+
+# chkconfig: - 99 99 
+# description: carbon-cache
+#
+# processname: /usr/bin/python bin/carbon-cache.py start
+
+# Sanity checks.
+[ -x /opt/graphite/bin/carbon-cache.py ] || exit 0
+
+SERVICE=carbon-cache
+DIRECTORY=/opt/graphite
+CONFIG_ARGS=""
+
+if [ -f /lib/lsb/init-functions ]; then
+  . /lib/lsb/init-functions
+  alias LAUNCH=bin/carbon-cache.py
+  alias START_DAEMON=start_daemon
+  alias STATUS=carbonStatus
+  alias LOG_SUCCESS=log_success_msg
+  alias LOG_FAILURE=log_failure_msg
+  alias LOG_WARNING=log_warning_msg
+elif [ -f /etc/init.d/functions ]; then
+  . /etc/init.d/functions
+  alias LAUNCH=bin/carbon-cache.py
+  alias START_DAEMON=daemon
+  alias STATUS=status
+  alias LOG_SUCCESS=success
+  alias LOG_FAILURE=failure
+  alias LOG_WARNING=passed
+else
+  echo "Error: your platform is not supported by $0" > /dev/stderr
+  exit 1
+fi
+
+
+RETVAL=0
+
+start() {
+	echo -n $"Starting carbon-cache daemon: "
+	cd $DIRECTORY
+<% current_port = port_start.to_i -%>
+<% last_port    = port_end.to_i -%>
+<% current_letter = "a" -%>
+<% loop do -%>
+        LAUNCH --instance=<%= current_letter -%> start
+<% current_port += 1 %>
+<% current_letter = current_letter.next -%>
+<% break if current_port > last_port -%>
+<% end %>
+	RETVAL=$?
+	echo
+	[ $RETVAL -eq 0 ] && touch /var/lock/subsys/$SERVICE
+	return $RETVAL
+}
+
+stop() {
+	echo -n $"Stopping carbon-cache daemon: "
+	cd $DIRECTORY
+<% current_port = port_start.to_i -%>
+<% last_port    = port_end.to_i -%>
+<% current_letter = "a" -%>
+<% loop do -%>
+        LAUNCH --instance=<%= current_letter -%> stop
+<% current_port += 1 -%>
+<% current_letter = current_letter.next -%>
+<% break if current_port > last_port -%>
+<% end %>
+	RETVAL=$?
+	echo
+	if [ $RETVAL -eq 0 ]; then
+	    rm -f /var/lock/subsys/$SERVICE
+            rm -f /var/run/$SERVICE.pid
+	fi
+}
+
+status() {
+  cd $DIRECTORY
+<% current_port = port_start.to_i -%>
+<% last_port    = port_end.to_i -%>
+<% current_letter = "a" -%>
+<% loop do -%>
+        LAUNCH --instance=<%= current_letter -%> status
+<% current_port += 1 -%>
+<% current_letter = current_letter.next -%>
+<% break if current_port > last_port -%>
+<% end %>
+  STAT=`LAUNCH status`
+  if [[ $STAT == *with* ]]; then
+    RETVAL=0
+  else
+    RETVAL=3
+  fi
+  return $RETVAL
+}
+
+# See how we were called.
+case "$1" in
+    start|stop|status)
+        $1
+        ;;
+    *)
+        echo $"Usage: $0 {start|stop|status}"
+        exit 1
+        ;;
+esac
+exit $RETVAL
+
