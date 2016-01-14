@@ -27,7 +27,8 @@ call vundle#end()
 """"""""""""""""""
 " Theme Settings "
 """"""""""""""""""
-colorscheme ColorZone
+"colorscheme ColorZone
+colorscheme PaperColor
 filetype plugin on
 syntax on
 

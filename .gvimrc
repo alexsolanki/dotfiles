@@ -1,6 +1,7 @@
 set transparency=10
 set lines=70
 set columns=115
+set clipboard=unnamed
 
 """""""""""""""""""
 " Setup nerd-tree "

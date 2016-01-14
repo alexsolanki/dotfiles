@@ -20,6 +20,8 @@ alias mvim='mvim --remote-silent-tab'
 alias vi='mvim'
 alias vim='mvim'
 
+alias ppv='puppet parser validate'
+
 # Functions
 function h() { if [ $1 == "--all" ]; then search='^f.*-'; domain=$2; else search='^f.{27,28}$'; domain=$1; fi; host -la ${domain}.fanops.net | awk -F" " '{print $1}' | sed -e 's/\.$//g' | egrep ${search} ;}
 function alh() { if [ "$1" == "--all" ]; then arg=$1; fi; for x in fra1 ams2 iad1 iad2 las1 las2 lab1 lax2 sjc1 hkg1; do h ${arg} ${x} ; done ;}
