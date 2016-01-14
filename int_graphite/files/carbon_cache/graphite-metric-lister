@@ -1,0 +1,20 @@
+#!/bin/bash
+# graphite-metric-lister - quick hack to print host/dsp-agnostic list of metrics on graphite host - INFRA-254
+# useful for determining the number or name of metrics needed to be generated when building out new site 
+
+# Variables
+METRICPATH="/ramdisk/whisper/metrics/"
+MYDC=`hostname -f | cut -c 14-17`
+MYCAPS=`echo $MYDC | tr a-z A-Z`
+
+# Test quickly that temp sub paths won't be duped
+Z=`find $METRICPATH -name "*XXhostnameXX*" | wc -l`
+Y=`find $METRICPATH -name "*XXdspidXX*" | wc -l`
+X=`find $METRICPATH -name "*XXhostgroupXX*" | wc -l`
+if [ $Z -gt 0 ] || [ $Y -gt 0 ] || [ $X -gt 0 ]; then
+	echo "Issue with temporary names, see script and adjust."; exit
+fi
+
+# Print stripped list (uniqued for Host Groups, Host Names, and DSP IDs)
+/bin/find $METRICPATH -type f -name "*.wsp" -mtime -2 ! -name "*impression_log_siteid_*" | sed "s/[0-9]-${MYCAPS}\/f/XXhostgroupXX-${MYCAPS}\/f/g" | sed "s/[0-9][0-9][0-9][0-9]_${MYDC}_/XXhostnameXX_${MYDC}_/g" | sed 's/\/dsp_[0-9][0-9][0-9][0-9]_/\/dsp_XXdspidXX_/g' | sort | uniq 
+

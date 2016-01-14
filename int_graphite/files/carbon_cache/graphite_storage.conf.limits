@@ -1,0 +1,4 @@
+root     soft nofile 8192 
+root     hard nofile 8192 
+apache soft nofile 8192 
+apache hard nofile 8192 

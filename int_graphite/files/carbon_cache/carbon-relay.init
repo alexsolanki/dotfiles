@@ -1,0 +1,97 @@
+#!/bin/sh
+# LSB header
+
+### BEGIN INIT INFO
+# Provides: carbon-relay
+# Required-Start: network
+# Required-Stop:
+# Default-Start: 3 4 5
+# Default-Stop: 0 1 2 6
+# Short-Description: carbon-relay
+# Description: carbon-relay
+### END INIT INFO
+
+# chkconfig header
+
+# chkconfig: - 99 99 
+# description: carbon-relay
+#
+# processname: /usr/bin/python bin/carbon-relay.py start
+
+# Sanity checks.
+[ -x /opt/graphite/bin/carbon-relay.py ] || exit 0
+
+SERVICE=carbon-relay
+DIRECTORY=/opt/graphite
+CONFIG_ARGS=""
+
+if [ -f /lib/lsb/init-functions ]; then
+  . /lib/lsb/init-functions
+  alias LAUNCH=bin/carbon-relay.py
+  alias START_DAEMON=start_daemon
+  alias STATUS=carbonStatus
+  alias LOG_SUCCESS=log_success_msg
+  alias LOG_FAILURE=log_failure_msg
+  alias LOG_WARNING=log_warning_msg
+elif [ -f /etc/init.d/functions ]; then
+  . /etc/init.d/functions
+  alias LAUNCH=bin/carbon-relay.py
+  alias START_DAEMON=daemon
+  alias STATUS=status
+  alias LOG_SUCCESS=success
+  alias LOG_FAILURE=failure
+  alias LOG_WARNING=passed
+else
+  echo "Error: your platform is not supported by $0" > /dev/stderr
+  exit 1
+fi
+
+
+RETVAL=0
+
+start() {
+	echo -n $"Starting carbon-relay daemon: "
+	cd $DIRECTORY
+	LAUNCH start
+	RETVAL=$?
+	echo
+	[ $RETVAL -eq 0 ] && touch /var/lock/subsys/$SERVICE
+	return $RETVAL
+}
+
+stop() {
+	echo -n $"Stopping carbon-relay daemon: "
+	cd $DIRECTORY
+	LAUNCH stop
+	RETVAL=$?
+	echo
+	if [ $RETVAL -eq 0 ]; then
+	    rm -f /var/lock/subsys/$SERVICE
+            rm -f /var/run/$SERVICE.pid
+	fi
+}
+
+status() {
+  cd $DIRECTORY
+  LAUNCH status
+  STAT=`LAUNCH status`
+  if [[ $STAT == *with* ]]; then
+    RETVAL=0
+  else
+    RETVAL=3
+  fi
+  return $RETVAL
+}
+
+# See how we were called.
+case "$1" in
+    start|stop|status)
+        $1
+        ;;
+    *)
+        echo $"Usage: $0 {start|stop|status}"
+        exit 1
+        ;;
+esac
+exit $RETVAL
+
