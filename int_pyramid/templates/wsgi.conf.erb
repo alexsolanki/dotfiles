@@ -1,0 +1,35 @@
+# Use only 1 Python sub-interpreter.  Multiple sub-interpreters
+# play badly with C extensions.  See
+# http://stackoverflow.com/a/10558360/209039
+
+LoadModule wsgi_module modules/mod_wsgi.so
+
+<VirtualHost *:80>
+
+  RewriteEngine on
+
+  Servername <%= @fqdn %>
+
+  RewriteCond %{HTTP:X-Forwarded-For} ^([0-9.]*).*
+  RewriteRule .* - [E=XFF_IP:%1]
+  RewriteCond %{HTTP:X-Forwarded-For} ^([0-9]*\.[0-9]*\.[0-9]*)\..*
+  RewriteRule .* - [E=XFF_24:%1]
+  LogFormat "%{XFF_IP}<e %{Host}i %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" \"[XFF=%{X-Forwarded-For}i] [reason=%{FORBIDDEN}<e] [actualIP=%h] [loc=%{Location}o] [apid=%P] [conn_stat=%X]\" %D" custom_log_fmt
+
+  WSGIApplicationGroup %{GLOBAL}
+  WSGIPassAuthorization On
+  WSGIDaemonProcess pyramid user=apache group=apache threads=4 \
+     python-path=/apps/<%= @project %>_web/venv/lib/python2.6/site-packages
+  WSGIScriptAlias / /apps/<%= @project %>_web/<%= @wsgi_dir %>/<%= @project %>.wsgi
+
+  <Directory /apps/<%= @project %>_web/venv>
+    WSGIProcessGroup pyramid
+    Order allow,deny
+    Allow from all
+  </Directory>
+
+  CustomLog /var/log/httpd/<%= @project %>-access_log custom_log_fmt
+  ErrorLog /var/log/httpd/<%= @project %>-error_log
+
+</VirtualHost>
+

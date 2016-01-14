@@ -1,0 +1,13 @@
+#
+# Configuration file for package jmxtrans
+# This file is controlled by puppet
+#
+export JAR_FILE="/usr/share/jmxtrans/jmxtrans-all.jar"
+export LOG_DIR="/var/log/jmxtrans"
+export SECONDS_BETWEEN_RUNS=60
+export JSON_DIR="/var/lib/jmxtrans"
+export HEAP_SIZE=10
+export NEW_SIZE=2
+export CPU_CORES=2
+export NEW_RATIO=8
+export LOG_LEVEL=ERROR

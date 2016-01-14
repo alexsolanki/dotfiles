@@ -1,0 +1,206 @@
+{
+  "servers": [
+    {
+      "alias": "<%= @int_rib_hostgroup %>.f<%= @int_platform %><%= @int_promotion_environment %>-<%= @int_role %><%= @int_rib_sequence %>_<%= @int_datacenter %>_fanops_net",
+      "port": "<%= @jmxtrans_port %>",
+      "host": "<%= @fqdn %>",
+      "username": "readonly",
+      "password": "readonly",
+      "queries": [
+        {
+          "outputWriters": [
+            {
+              "@class": "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+              "settings": {
+                "rootPrefix": "metrics",
+                "port": "<%= @graphite_port %>",
+                "host": "<%= @graphite_host %>",
+                "typeNames": [
+                  "name"
+                ]
+              }
+            }
+          ],
+          "obj": "java.lang:type=Runtime",
+          "resultAlias": "<%= @application %>",
+          "attr": [
+            "Uptime"
+          ]
+        },{
+          "outputWriters": [
+            {
+              "@class": "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+              "settings": {
+                "rootPrefix": "metrics",
+                "port": "<%= @graphite_port %>",
+                "host": "<%= @graphite_host %>",
+                "typeNames": [
+                  "name"
+                ]
+              }
+            }
+          ],
+          "obj": "java.lang:type=MemoryPool,name=CMS Perm Gen",
+          "resultAlias": "<%= @application %>",
+          "attr": [
+            "Usage",
+            "PeakUsage"
+          ]
+        },{
+          "outputWriters": [
+            {
+              "@class": "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+              "settings": {
+                "rootPrefix": "metrics",
+                "port": "<%= @graphite_port %>",
+                "host": "<%= @graphite_host %>",
+                "typeNames": [
+                  "name"
+                ]
+              }
+            }
+          ],
+          "obj": "java.lang:type=MemoryPool,name=CMS Old Gen",
+          "resultAlias": "<%= @application %>",
+          "attr": [
+            "Usage",
+            "PeakUsage"
+          ]
+        },{
+          "outputWriters": [
+            {
+              "@class": "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+              "settings": {
+                "rootPrefix": "metrics",
+                "port": "<%= @graphite_port %>",
+                "host": "<%= @graphite_host %>",
+                "typeNames": [
+                  "name"
+                ]
+              }
+            }
+          ],
+          "obj": "java.lang:type=MemoryPool,name=Par Eden Space",
+          "resultAlias": "<%= @application %>",
+          "attr": [
+            "Usage",
+            "PeakUsage"
+          ]
+        },{
+          "outputWriters": [
+            {
+              "@class": "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+              "settings": {
+                "rootPrefix": "metrics",
+                "port": "<%= @graphite_port %>",
+                "host": "<%= @graphite_host %>",
+                "typeNames": [
+                  "name"
+                ]
+              }
+            }
+          ],
+          "obj": "java.lang:type=MemoryPool,name=Par Survivor Space",
+          "resultAlias": "<%= @application %>",
+          "attr": [
+            "Usage",
+            "PeakUsage"
+          ]
+        },{
+          "outputWriters": [
+            {
+              "@class": "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+              "settings": {
+                "rootPrefix": "metrics",
+                "port": "<%= @graphite_port %>",
+                "host": "<%= @graphite_host %>",
+                "typeNames": [
+                  "name"
+                ]
+              }
+            }
+          ],
+          "obj": "java.lang:type=GarbageCollector,name=ConcurrentMarkSweep",
+          "resultAlias": "<%= @application %>",
+          "attr": [
+            "LastGcInfo",
+            "CollectionCount",
+            "CollectionTime"
+          ]
+        },{
+          "outputWriters": [
+            {
+              "@class": "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+              "settings": {
+                "rootPrefix": "metrics",
+                "port": "<%= @graphite_port %>",
+                "host": "<%= @graphite_host %>",
+                "typeNames": [
+                  "name"
+                ]
+              }
+            }
+          ],
+          "obj": "java.lang:type=GarbageCollector,name=ParNew",
+          "resultAlias": "<%= @application %>",
+          "attr": [
+            "LastGcInfo",
+            "CollectionCount",
+            "CollectionTime"
+          ]
+        },{
+          "outputWriters": [
+            {
+              "@class": "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+              "settings": {
+                "rootPrefix": "metrics",
+                "port": "<%= @graphite_port %>",
+                "host": "<%= @graphite_host %>",
+                "typeNames": [
+                  "name"
+                ]
+              }
+            }
+          ],
+          "obj": "java.lang:type=Memory",
+          "resultAlias": "<%= @application %>",
+          "attr": [
+            "HeapMemoryUsage",
+            "NonHeapMemoryUsage"
+          ]
+<% if @jmxtrans_beans
+jmxtrans_beans.keys.sort.each do |key| -%>
+        },{
+          "outputWriters": [
+            {
+              "@class": "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+              "settings": {
+                "rootPrefix": "metrics",
+                "port": "<%= @graphite_port %>",
+                "host": "<%= @graphite_host %>",
+                "typeNames": [
+                  "name"
+                ]
+              }
+            }
+          ],
+          "obj": "<%=jmxtrans_beans[key]['object']%>",
+          "resultAlias": "<%=key%>",
+          "attr": [
+    <% jmxtrans_beans[key]['attr'].each_with_index do |attrs, index| -%>
+    <% if index == jmxtrans_beans[key]['attr'].size - 1 -%>
+    "<%=attrs%>"
+    <% else -%>
+    "<%=attrs%>",
+    <%end
+    end-%>
+      ]
+<%end
+end-%>
+        }
+      ],
+      "numQueryThreads": 2
+    }
+  ]
+}
+
