@@ -101,8 +101,8 @@ KeepAliveTimeout 15
 StartServers       8
 MinSpareServers    5
 MaxSpareServers   20
-ServerLimit      <%= carbon_cache_httpd_maxclients -%>
-MaxClients       <%= carbon_cache_httpd_maxclients -%>
+ServerLimit      <%= carbon_cache_httpd_maxclients %>
+MaxClients       <%= carbon_cache_httpd_maxclients %>
 MaxRequestsPerChild  4000
 </IfModule>
 
