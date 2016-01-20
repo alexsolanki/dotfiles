@@ -7,6 +7,7 @@ class int_graphite::carbon_cache::configure () inherits int_graphite::params {
 
   # Variables
   $carbon_cache_httpd_sysconfig_state = hiera('int_graphite::params::carbon_cache_httpd_sysconfig_state')
+  $carbon_cache_httpd_maxclients      = hiera('int_graphite::params::carbon_cache_httpd_maxclients')
 
   # File resource defaults
   File {
@@ -34,8 +35,6 @@ class int_graphite::carbon_cache::configure () inherits int_graphite::params {
     '/etc/sysconfig/httpd':
       ensure  => $carbon_cache_httpd_sysconfig_state,
       source  => 'puppet:///modules/int_graphite/carbon_cache/sysconfig.httpd';
-    '/etc/httpd/conf/httpd.conf':
-      source  => 'puppet:///modules/int_graphite/carbon_cache/httpd.conf';
     '/etc/httpd/conf.d/auth_kerb.conf':
       source  => 'puppet:///modules/int_graphite/carbon_cache/auth_kerb.conf';
     '/etc/httpd/conf.d/graphite.conf':
@@ -109,6 +108,8 @@ class int_graphite::carbon_cache::configure () inherits int_graphite::params {
 
   # Files: Templated configurations (dynamic)
   file {
+    '/etc/httpd/conf/httpd.conf':
+      content   => template('int_graphite/carbon_cache/httpd.conf.erb');
     '/etc/init.d/carbon-cache':
       mode      => '0755',
       content   => template('int_graphite/carbon_cache/carbon-cache.erb');
