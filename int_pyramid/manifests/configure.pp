@@ -22,7 +22,7 @@ class int_pyramid::configure (
     '/etc/httpd/conf.d/wsgi.conf':
       ensure   => 'absent';
     $app_dirs :
-       ensure => 'directory',
+      ensure => 'directory',
       owner  => 'apache',
       group  => 'apache',
       mode   => '0755';

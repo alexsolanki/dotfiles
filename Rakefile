@@ -154,7 +154,7 @@ task :lint, [:directory] do |t, args|
   linter.configuration.send("disable_puppet_url_without_modules")
 
   puppet_files.each do |puppet_file|
-    puts "Evaluating code style for #{puppet_file}"
+    # puts "Evaluating code style for #{puppet_file}"
     linter.file = puppet_file
     linter.run
     linter.print_problems
