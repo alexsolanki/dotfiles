@@ -1,0 +1,24 @@
+/var/log/httpd/*log {
+    missingok
+    rotate 3
+    compress
+    daily
+    notifempty
+    sharedscripts
+    postrotate
+        /sbin/service httpd reload > /dev/null 2>/dev/null || true
+    endscript
+}
+
+/opt/graphite/storage/log/webapp/access.log {
+    missingok
+    rotate 1
+    compress
+    daily
+    notifempty
+    sharedscripts
+    postrotate
+        /sbin/service httpd reload > /dev/null 2>/dev/null || true
+    endscript
+}
+
