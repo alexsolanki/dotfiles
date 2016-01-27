@@ -1011,6 +1011,8 @@ RewriteCond %{REMOTE_HOST} !^10.20.22.*$
 RewriteCond %{REMOTE_HOST} !^10.96.120.*$
 RewriteCond %{REMOTE_HOST} !^10.31.20.*$
 RewriteCond %{REMOTE_HOST} !^10.31.22.*$
+RewriteCond %{REMOTE_HOST} !^10.50.20.*$
+RewriteCond %{REMOTE_HOST} !^10.50.22.*$
 RewriteCond %{SERVER_PORT} !^443$
 RewriteRule ^/(.*)$ https://%{SERVER_NAME}/$1 [NE]
 ###########################################################
