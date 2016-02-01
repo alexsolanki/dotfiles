@@ -991,28 +991,28 @@ BrowserMatch "^Dreamweaver-WebDAV-SCM1" redirect-carefully
 #########################################################
 ### Force SSL
 RewriteEngine On
-RewriteCond %{REMOTE_HOST} !^10.23.33.*$
-RewriteCond %{REMOTE_HOST} !^10.23.34.*$
-RewriteCond %{REMOTE_HOST} !^10.20.30.*$
-RewriteCond %{REMOTE_HOST} !^10.82.16.*$
-RewriteCond %{REMOTE_HOST} !^10.83.16.*$
-RewriteCond %{REMOTE_HOST} !^10.85.16.*$
-RewriteCond %{REMOTE_HOST} !^10.85.33.*$
-RewriteCond %{REMOTE_HOST} !^10.85.36.*$
-RewriteCond %{REMOTE_HOST} !^10.83.40.*$
-RewriteCond %{REMOTE_HOST} !^10.87.16.*$
-RewriteCond %{REMOTE_HOST} !^10.87.40.*$
 RewriteCond %{REMOTE_HOST} !^10.20.20.*$
-RewriteCond %{REMOTE_HOST} !^10.40.20.27.*$
-RewriteCond %{REMOTE_HOST} !^10.40.22.27.*$
-RewriteCond %{REMOTE_HOST} !^10.40.24.30.*$
-RewriteCond %{REMOTE_HOST} !^10.20.24.*$
 RewriteCond %{REMOTE_HOST} !^10.20.22.*$
-RewriteCond %{REMOTE_HOST} !^10.96.120.*$
+RewriteCond %{REMOTE_HOST} !^10.20.24.*$
+RewriteCond %{REMOTE_HOST} !^10.20.30.*$
 RewriteCond %{REMOTE_HOST} !^10.31.20.*$
 RewriteCond %{REMOTE_HOST} !^10.31.22.*$
+RewriteCond %{REMOTE_HOST} !^10.40.20.*$
+RewriteCond %{REMOTE_HOST} !^10.40.20.27.*$
+RewriteCond %{REMOTE_HOST} !^10.40.22.*$
+RewriteCond %{REMOTE_HOST} !^10.40.22.27.*$
+RewriteCond %{REMOTE_HOST} !^10.40.24.30.*$
 RewriteCond %{REMOTE_HOST} !^10.50.20.*$
 RewriteCond %{REMOTE_HOST} !^10.50.22.*$
+RewriteCond %{REMOTE_HOST} !^10.71.20.*$
+RewriteCond %{REMOTE_HOST} !^10.83.16.*$
+RewriteCond %{REMOTE_HOST} !^10.83.40.*$
+RewriteCond %{REMOTE_HOST} !^10.83.126.*$
+RewriteCond %{REMOTE_HOST} !^10.86.16.*$
+RewriteCond %{REMOTE_HOST} !^10.87.16.*$
+RewriteCond %{REMOTE_HOST} !^10.87.40.*$
+RewriteCond %{REMOTE_HOST} !^10.96.120.*$
+RewriteCond %{REMOTE_HOST} !^10.96.16.*$
 RewriteCond %{SERVER_PORT} !^443$
 RewriteRule ^/(.*)$ https://%{SERVER_NAME}/$1 [NE]
 ###########################################################
