@@ -10,7 +10,7 @@ class int_mapr::cldb::configure (
   $mapr_ensure_service = false,
 ) {
 
-  int_mapr::mapr_configure { 'cldb':
+  int_mapr::configure { 'cldb':
     cluster_name    => $cluster_name,
     cldb_hosts      => $cldb_hosts,
     zookeeper_hosts => $zookeeper_hosts,
