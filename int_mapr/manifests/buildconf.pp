@@ -33,7 +33,7 @@ class int_mapr::buildconf (
 
   # Files
   file { '/apps/bin/mapr_configure_command':
-    ensure  => 'present',
+    mode    => '0644',
     content => $maprcd_configure_cmd,
   }
 
