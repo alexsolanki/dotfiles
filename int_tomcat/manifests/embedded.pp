@@ -5,7 +5,6 @@
 #
 class int_tomcat::embedded (
   $app_name = hiera('int_tomcat::embedded::app_name'),
-  $app_version = hiera('int_tomcat::embedded::app_version')
 ) {
 
   class { 'int_tomcat::embedded::install':
