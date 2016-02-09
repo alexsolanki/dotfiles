@@ -10,7 +10,7 @@ class int_mapr::buildconf (
 ) {
 
   # Build command line arguments for configure script
-  $maprcd_configure_cmd = [
+  $mapr_configure_cmd = [
     '/opt/mapr/server/configure.sh',
     # Verbose information
     '-v',
@@ -34,7 +34,7 @@ class int_mapr::buildconf (
   # Files
   file { '/apps/bin/mapr_configure_command':
     mode    => '0644',
-    content => $maprcd_configure_cmd,
+    content => $mapr_configure_cmd,
   }
 
 }

@@ -6,21 +6,11 @@
 # Dynamically source script name.
 SCRIPT=$(/usr/bin/env basename $0)
 
-# Exit if script is not run as root user.
-if [ "$USER" != "root" ]; then
-  echo "INFO: This script requires elevated privileges to run. Try using sudo."
-  EXITCODE=$STATE_WARNING
-  graceful_exit
-fi
-
 # Exit codes.
 STATE_OK=0
 STATE_WARNING=1
 STATE_CRITICAL=2
 STATE_UNKNOWN=3
-
-# Default to UNKNOWN if no other code is set later.
-EXITCODE=$STATE_UNKNOWN
 
 # Variables.
 DATACENTER=$(/usr/bin/facter -p 2> /dev/null | grep fandatacenter | awk '{ print toupper($3) }')
@@ -30,36 +20,8 @@ USER=$(/usr/bin/id -un)
 BASEPATH="/opt/trp/cluster-validation"
 DISKCOUNT=12
 DISKTESTRUNS=20
-
-# Exit right away if program is already running.
+EXITCODE=$STATE_UNKNOWN
 PIDFILE="/var/run/$SCRIPT.pid"
-
-if [ -e $PIDFILE ]; then
-  ps -p $(/bin/cat $PIDFILE) > /dev/null 2>&1
-  PSEXIT="$?"
-  if [ "$PSEXIT" -ne "0" ]; then
-    echo "WARN: PID file found at $PIDFILE, but process not found."
-    # Node Auditor should only ever run once.
-    # Safer not to remove even a seemingly stale PID file.
-    echo "INFO: Exiting."
-    EXITCODE=$STATE_WARNING
-  else
-    echo "WARN: PID file found at $PIDFILE and matching running process."
-    echo "INFO: Exiting."
-  fi
-  exit $EXITCODE
-fi
-
-# Otherwise, create a pidfile.
-echo $$ > $PIDFILE
-
-# Exit immediately if node validation has already been run.
-if [ -e $BASEPATH/logs/validation_runounce]; then
-  echo "INFO: Previous validation sentinel file detected: ${BASEPATH}/logs/validation_runounce."
-  EXITCODE=$STATE_WARNING
-  graceful_exit
-fi
-touch ${BASEPATH}/logs/validation_runounce
 
 function usage {
 cat << EOF
@@ -91,7 +53,7 @@ while getopts "hm:" OPTION; do
     esac
 done
 
-if [[ -z $RUN_MODE]]; then
+if [[ -z $RUN_MODE ]]; then
     usage
     exit 1
 fi
@@ -124,8 +86,42 @@ disk_test() {
   echo "INFO: End disk performance validation." >> $BASEPATH/logs/disk-test.log
 }
 
+# Exit if script is not run as root user.
+if [ "$USER" != "root" ]; then
+  echo "INFO: This script requires elevated privileges to run. Try using sudo."
+  EXITCODE=$STATE_WARNING
+  graceful_exit
+fi
+
+if [ -e $PIDFILE ]; then
+  ps -p $(/bin/cat $PIDFILE) > /dev/null 2>&1
+  PSEXIT="$?"
+  if [ "$PSEXIT" -ne "0" ]; then
+    echo "WARN: PID file found at $PIDFILE, but process not found."
+    # Node Auditor should only ever run once.
+    # Safer not to remove even a seemingly stale PID file.
+    echo "INFO: Exiting."
+    EXITCODE=$STATE_WARNING
+  else
+    echo "WARN: PID file found at $PIDFILE and matching running process."
+    echo "INFO: Exiting."
+  fi
+  exit $EXITCODE
+fi
+
+# Otherwise, create a pidfile.
+echo $$ > $PIDFILE
+
+# Exit immediately if node validation has already been run.
+if [ -e $BASEPATH/logs/validation_runounce]; then
+  echo "INFO: Previous validation sentinel file detected: ${BASEPATH}/logs/validation_runounce."
+  EXITCODE=$STATE_WARNING
+  graceful_exit
+fi
+touch ${BASEPATH}/logs/validation_runounce
+
 # Run the tests!
-if [ $RUN_MODE == 'ALL' ]; then
+if [ $RUN_MODE == 'all' ]; then
   memory_test
   disk_test
 elif [ $RUN_MODE == 'memory']; then
@@ -168,7 +164,6 @@ else
       /usr/bin/hadoop fs -rmr -skipTrash /var/mapr/local/$HOSTNAME/$dir
     fi
   done
-
 
   # Generating mapr devices
   # Find the root volume, for example, sda1
