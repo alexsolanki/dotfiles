@@ -7,12 +7,6 @@ class int_tomcat::embedded::install (
   $app_name = $int_tomcat::embedded::app_name,
 ) inherits int_tomcat::embedded {
 
-  class {
-    'int_jre':
-  }->
-  class {
-    'prodicon-user':
-  }->
   package { $app_name:
     ensure => $::int_tomcat_embedded_app_version,
   }
