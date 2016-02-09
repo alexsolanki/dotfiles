@@ -10,11 +10,15 @@ class int_mapr::cldb::configure (
   $mapr_ensure_service = false,
 ) {
 
-  int_mapr::configure { 'cldb':
+  # Configure a cldb node
+  class { 'int_mapr::buildconf':
     cluster_name    => $cluster_name,
     cldb_hosts      => $cldb_hosts,
     zookeeper_hosts => $zookeeper_hosts,
   }
+
+  # Validate a cldb node
+  class { 'int_mapr::validate': }
 
   if $mapr_ensure_service == true {
     service {
