@@ -4,7 +4,8 @@
 #  Install embedded tomcat
 #
 class int_tomcat::embedded::install (
-  $app_version = $int_tomcat::embedded::app_version
+  $app_name = $int_tomcat::embedded::app_name,
+  $app_version = $int_tomcat::embedded::app_version,
 ) inherits int_tomcat::embedded {
 
   class {
@@ -13,8 +14,8 @@ class int_tomcat::embedded::install (
   class {
     'prodicon-user':
   }->
-  package { 'platform-system-config':
+  package { $app_name:
     ensure => $app_version,
-  }->
+  }
 
 }
