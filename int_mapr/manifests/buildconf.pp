@@ -10,7 +10,7 @@ class int_mapr::buildconf (
 ) {
 
   # Build command line arguments for configure script
-  $mapr_configure_cmd = [
+  $mapr_configure = [
     '/opt/mapr/server/configure.sh',
     # Verbose information
     '-v',
@@ -30,6 +30,7 @@ class int_mapr::buildconf (
     # -M Uses the maximum available number of disks per storage pool.
     '-disk-opts', 'FM',
   ]
+  $mapr_configure_cmd = inline_template("<%=mapr_configure.join(' ')%>")
 
   # Files
   file { '/apps/bin/mapr_configure_command':
