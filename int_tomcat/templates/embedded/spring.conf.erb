@@ -1,0 +1,4 @@
+MODE=service
+JAVA_OPTS="-Dspring.profiles.active=<%= @int_promotion_environment_short %> -Dspring.config.location=/apps/<%= @app_name %>/conf/ \
+    -Dlog.dir=/apps/<%= @app_name %>/log/ -Dcom.sun.management.jmxremote \
+    -Dcom.sun.management.jmxremote.port=8005 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false"
