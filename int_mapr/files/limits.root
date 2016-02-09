@@ -1,0 +1,4 @@
+# As Per: http://www.mapr.com/doc/display/MapR/ulimit
+# bump inode limit to 64k
+root            soft    nofile          64000
+root            hard    nofile          64000

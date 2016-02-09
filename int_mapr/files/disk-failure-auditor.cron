@@ -1,0 +1,3 @@
+MAILTO=""
+
+*/5 * * * * root /bin/sleep $(($RANDOM \% 150)); /usr/local/sbin/disk-failure-auditor.sh >> /var/log/trp/disk-failure-auditor.log 2>&1
