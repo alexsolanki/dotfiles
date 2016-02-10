@@ -193,7 +193,7 @@ block_devices=$(ls -l /dev/sd* | grep -o '/dev/sd\w$' | grep -v $sys_device)
 
 # Mash them all together
 for device in $block_devices; do
-  blockdevices+=$device
+  blockdevices+="$device,"
 done
 
 # Remove the last comma
