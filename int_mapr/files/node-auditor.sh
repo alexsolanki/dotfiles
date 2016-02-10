@@ -171,7 +171,7 @@ for dir in $hdfs_dirs; do
   result=$?
   if [ $result -eq 0 ]; then
     echo -e "INFO: HDFS PATH exists removing: /var/mapr/local/$HOSTNAME/$dir"
-    /usr/bin/hadoop fs -rmr -skipTrash /var/mapr/local/$HOSTNAME/$dir
+    /usr/bin/hadoop fs -rm -r /var/mapr/local/$HOSTNAME/$dir
   fi
 done
 
