@@ -9,6 +9,7 @@ class int_tomcat::embedded::install (
 
   package { $app_name:
     ensure => $::int_tomcat_embedded_app_version,
+    notify  => Service["${app_name}"],;
   }
 
 }
