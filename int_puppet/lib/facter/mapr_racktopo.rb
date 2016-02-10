@@ -6,13 +6,14 @@
 
 Facter.add("mapr_racktopo") do
   confine :fanrole => 'cld'
-  setcode do
-    retval = "/cldb"
-    # Return retval
-    retval
+    setcode do
+      retval = "/cldb"
+      # Return retval
+      retval
+    end
   end
   confine :fanrole => 'jtr'
-  setcode do
+    setcode do
     retval = ""
     case Facter.value(:fanhostgroupalphaonly)
       when "fmap-jtr"
@@ -22,9 +23,10 @@ Facter.add("mapr_racktopo") do
     end
     # Return retval
     retval
+    end
   end
   confine :fanrole => 'com'
-  setcode do
+    setcode do
     retval = ""
     case Facter.value(:fandatacenter)
       when "las2"
@@ -118,5 +120,6 @@ Facter.add("mapr_racktopo") do
     end
     # Return retval
     retval
+    end
   end
 end
