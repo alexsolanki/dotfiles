@@ -61,8 +61,10 @@ fi
 # Graceful exit function.
 graceful_exit() {
   /bin/rm -f $PIDFILE
-  if [[ $EXITCODE != 0 ]]; then
-    touch $BASEPATH/logs/failure
+  if [[ $EXITCODE == 0 ]]; then
+    touch ${BASEPATH}/logs/success
+  else
+    touch ${BASEPATH}/logs/failure
   fi
   echo -e "INFO: Exiting with $EXITCODE"
   exit $EXITCODE
@@ -201,8 +203,7 @@ MAPR_DEVICES=$(echo $blockdevices | sed -e 's/,$//')
 echo -e "INFO: Trigger MapR configure command."
 echo -e "INFO: Running: $(cat /apps/bin/mapr_configure_command) -D $MAPR_DEVICES"
 $(cat /apps/bin/mapr_configure_command) -D $MAPR_DEVICES
-EXITCODE=$STATE_OK
-touch ${BASEPATH}/logs/success
+EXITCODE=$?
 
 # Exit gracefully
 graceful_exit
