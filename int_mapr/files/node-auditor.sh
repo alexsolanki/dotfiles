@@ -84,7 +84,8 @@ memory_test() {
 disk_test() {
   echo -e "INFO: Running disk test"
   echo -e "INFO: Begin disk performance validation." >> $BASEPATH/logs/disk-test.log
-
+  #FIXME: Need to update RPM to safe logs in logs dir
+  cd $BASEPATH/logs
   for i in {1..$DISKTESTRUNS}; do
     $BASEPATH/pre-install/disk-test.sh > $BASEPATH/logs/disk-test.out.$i 2>&1
     /bin/grep -F '   1024' sd*-iozone.log | awk '{ print $1, $4, $5 }' > $BASEPATH/logs/results.log.$i 2>&1
