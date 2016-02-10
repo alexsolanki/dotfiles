@@ -5,7 +5,7 @@
 # http://wiki.rubiconproject.com/display/techops/MapR+DataNode+Verification+Process
 
 Facter.add("mapr_racktopo") do
-  confine :fanrole => %w{cld, jtr, com}
+  confine :fanrole => %w{cld jtr com}
   setcode do
     retval = ""
     case Facter.value(:fanrole)
