@@ -5,6 +5,20 @@
 # http://wiki.rubiconproject.com/display/techops/MapR+DataNode+Verification+Process
 
 Facter.add("mapr_racktopo") do
+    confine :fanrole => 'cld'
+    setcode do
+      retval = "/cldb"
+    end
+    confine :fanrole => 'jtr'
+    setcode do
+      retval = ""
+      case Facter.value(:fanhostgroupalphaonly)
+      when "fmap-jtr"
+          retval = "/jobtracker"
+      else
+          retval = "/resourcemanager"
+      end
+    end
     confine :fanrole => 'com'
     setcode do
       retval = ""
