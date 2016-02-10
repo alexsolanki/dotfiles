@@ -18,7 +18,7 @@ Facter.add("mapr_racktopo") do
           else
             retval = "/resourcemanager"
           end
-      when "jtr"
+      when "com"
         case Facter.value(:fandatacenter)
           when "las2"
             case Facter.value(:fanhostgroupalphaonly)
@@ -40,8 +40,7 @@ Facter.add("mapr_racktopo") do
                     rack_number = 5617
                   when 1210..1239
                     rack_number = 5618
-                end
-
+                  end
                 if rack_number.to_s.length > 0
                   # We know what rack if it matched a case and was assigned
                   retval = "/data/rack" + rack_number.to_s
@@ -57,8 +56,7 @@ Facter.add("mapr_racktopo") do
                     rack_number = 5621
                   when 20054..20080
                     rack_number = 5620
-                end
-
+                  end
                 if rack_number.to_s.length > 0
                   # We know what rack if it matched a case and was assigned
                   retval = "/data/rack" + rack_number.to_s
@@ -74,8 +72,7 @@ Facter.add("mapr_racktopo") do
                     rack_number = 1202
                   when 20014..20019
                     rack_number = 1203
-                end
-
+                  end
                 if rack_number.to_s.length > 0
                   # We know what rack if it matched a case and was assigned
                   retval = "/data/rack" + rack_number.to_s
@@ -90,21 +87,10 @@ Facter.add("mapr_racktopo") do
           when "lab1"
             case Facter.value(:fanhostgroupalphaonly)
               when "fmad-com"
-                case Facter.value(:fanhostsequence).to_i
-                  when 9000..9050
-                    rack_number = 9000
-                  end
-                  if rack_number.to_s.length > 0
-                    # We know what rack if it matched a case and was assigned
-                    retval = "/data/rack" + rack_number.to_s
-                  else
-                    # When the fanhostsequence does not match a range
-                    retval = "undefined"
-                  end
+                  retval = "/data/rack9000"
               else
-                # When the fanhostgroupalpha doesn't match a case
-                retval = "undefined"
-            end
+                  retval = "undefined"
+              end
           else
             # When the datacenter doesn't match a case
             retval = "undefined"
