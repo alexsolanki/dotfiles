@@ -7,6 +7,8 @@ class int_mapr::buildconf (
     $cluster_name = undef,
     $cldb_hosts = undef,
     $zookeeper_hosts = undef,
+    $resource_hosts= undef,
+    $history_server = undef,
 ) {
 
   # Build command line arguments for configure script
@@ -22,6 +24,10 @@ class int_mapr::buildconf (
     '-C', $cldb_hosts,
     # Zookeeper Host list
     '-Z', $zookeeper_hosts,
+    # Resource manager
+    '-RM', $resource_hosts,
+    # Resource manager
+    '-HS', $history_server,
     # User and group for running MapR services
     '-u', 'mapr',
     '-g', 'mapr',
