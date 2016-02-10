@@ -6,7 +6,7 @@
 
 Facter.add("mapr_racktopo") do
   confine :fanrole => %w{cld, jtr, com}
-    setcode do
+  setcode do
     retval = ""
     case Facter.value(:fanrole)
       when "cld"
@@ -67,15 +67,15 @@ Facter.add("mapr_racktopo") do
               when "fbmq-com"
                 case Facter.value(:fanhostsequence).to_i + 20000
                   when 20000..20006
-                    rack_number = 1201
+                    rack_number = 201
                   when 20007..20013
-                    rack_number = 1202
+                    rack_number = 202
                   when 20014..20019
-                    rack_number = 1203
+                    rack_number = 203
                   end
                 if rack_number.to_s.length > 0
                   # We know what rack if it matched a case and was assigned
-                  retval = "/data/rack" + rack_number.to_s
+                  retval = "/data/rack0" + rack_number.to_s
                 else
                   # When the fanhostsequence does not match a range
                   retval = "undefined"
