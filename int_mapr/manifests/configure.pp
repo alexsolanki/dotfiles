@@ -14,7 +14,6 @@ class int_mapr::configure {
   user { 'mapr':
     ensure     => present,
     comment    => 'MapR user',
-    gid        => 'mapr',
     groups     => 'shadow',
     home       => '/opt/mapr',
     managehome => false,
@@ -26,7 +25,6 @@ class int_mapr::configure {
   user { 'maprapi':
     ensure     => present,
     comment    => 'MapR API user',
-    gid        => 'maprapi',
     home       => '/home/maprapi',
     managehome => true,
     shell      => '/bin/bash',
