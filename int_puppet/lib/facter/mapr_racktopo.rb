@@ -58,11 +58,11 @@ Facter.add("mapr_racktopo") do
           when "fbmq-com"
               case Facter.value(:fanhostsequence).to_i + 20000
               when 20000..20006
-                  rack_number = 0201
+                  rack_number = 1201
               when 20007..20013
-                  rack_number = 0202
+                  rack_number = 1202
               when 20014..20019
-                  rack_number = 0203
+                  rack_number = 1203
               end
 
               if rack_number.to_s.length > 0
