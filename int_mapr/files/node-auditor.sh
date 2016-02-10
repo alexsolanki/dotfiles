@@ -64,21 +64,24 @@ graceful_exit() {
   if [[ $EXITCODE != 0 ]]; then
     touch $BASEPATH/logs/failure
   fi
+  echo -e "INFO: Exiting with $EXITCODE"
   exit $EXITCODE
 }
 
 # Test Functions.
 memory_test() {
-  echo "INFO: Begin memory performance validation." > $BASEPATH/logs/memory-test.log
+  echo -e "INFO: Running memory test"
+  echo -e "INFO: Begin memory performance validation." > $BASEPATH/logs/memory-test.log
   $BASEPATH/pre-install/memory-test.sh 2>&1 | grep ^Triad >> $BASEPATH/logs/memory-test.log
-  echo "INFO: End memory performance validation." >> $BASEPATH/logs/memory-test.log
-  echo "INFO: Begin memory latency validation." >> $BASEPATH/logs/memory-test.log
+  echo -e "INFO: End memory performance validation." >> $BASEPATH/logs/memory-test.log
+  echo -e "INFO: Begin memory latency validation." >> $BASEPATH/logs/memory-test.log
   $BASEPATH/pre-install/memory-test.sh lat >> $BASEPATH/logs/memory-test.log 2>&1
-  echo "INFO: End memory latency validation." >> $BASEPATH/logs/memory-test.log
+  echo -e "INFO: End memory latency validation." >> $BASEPATH/logs/memory-test.log
 }
 
 disk_test() {
-  echo "INFO: Begin disk performance validation." >> $BASEPATH/logs/disk-test.log
+  echo -e "INFO: Running disk test"
+  echo -e "INFO: Begin disk performance validation." >> $BASEPATH/logs/disk-test.log
 
   for i in {1..$DISKTESTRUNS}; do
     $BASEPATH/pre-install/disk-test.sh > $BASEPATH/logs/disk-test.out.$i 2>&1
@@ -86,12 +89,12 @@ disk_test() {
   done
 
   /bin/cat $BASEPATH/logs/results.log.* >> $BASEPATH/logs/disk-test.log
-  echo "INFO: End disk performance validation." >> $BASEPATH/logs/disk-test.log
+  echo -e "INFO: End disk performance validation." >> $BASEPATH/logs/disk-test.log
 }
 
 # Exit if script is not run as root user.
 if [ "$USER" != "root" ]; then
-  echo "INFO: This script requires elevated privileges to run. Try using sudo."
+  echo -e "INFO: This script requires elevated privileges to run. Try using sudo."
   EXITCODE=$STATE_WARNING
   graceful_exit
 fi
@@ -117,7 +120,7 @@ echo $$ > $PIDFILE
 
 # Exit immediately if node validation has already been run.
 if [[ -e $BASEPATH/logs/validation_runounce ]]; then
-  echo "INFO: Previous validation sentinel file detected: ${BASEPATH}/logs/validation_runounce."
+  echo -e "WARN: Previous validation sentinel file detected: ${BASEPATH}/logs/validation_runounce."
   EXITCODE=$STATE_WARNING
   graceful_exit
 fi
@@ -125,18 +128,21 @@ touch ${BASEPATH}/logs/validation_runounce
 
 # Run the tests!
 if [ $RUN_MODE == 'all' ]; then
+  echo -e "INFO: Running with mode all"
   memory_test
   disk_test
 elif [ $RUN_MODE == 'memory' ]; then
+  echo -e "INFO: Running with mode memory"
   memory_test
 elif [ $RUN_MODE == 'disk' ]; then
+  echo -e "INFO: Running with mode disk"
   disk_test
   # Validation!
   SUCCESS_EXPECTED=$(echo $DISKCOUNT * $DISKTESTRUNS | /usr/bin/bc -l)
   SUCCESS_COUNT=$(/bin/cat ${BASEPATH}/logs/disk-test.log | egrep "sd.-iozone.log: [12]..... [12]....." | wc -l)
   if [[ $SUCCESS_COUNT -lt $SUCCESS_EXPECTED ]]; then
     REASON="ERROR: Underperforming MapR data disks detected (SUCCESS_COUNT=${SUCCESS_COUNT}), see $BASEPATH/logs/disk-test.log"
-    echo $REASON
+    echo -e $REASON
     EXITCODE=$STATE_CRITICAL
     graceful_exit
   fi
