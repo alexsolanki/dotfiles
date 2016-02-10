@@ -95,6 +95,8 @@ Facter.add("mapr_racktopo") do
             # When the datacenter doesn't match a case
             retval = "undefined"
           end
+      else
+        retval = "undefined"
       end
     retval
   end
