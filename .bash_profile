@@ -6,9 +6,11 @@ if [ -f "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh" ]; then
 fi
 
 # Aliases
-alias cdp='cd /Users/asolanki/trp/git/puppet_production'
-alias cdpm='cd /Users/asolanki/trp/git/puppet_production/modules'
+alias cdp='cd /Users/asolanki/trp/git/puppet_legacy'
+alias cdr='cd /Users/asolanki/trp/git/puppet_roles'
+alias cdc='cd /Users/asolanki/trp/git/puppet_core'
 alias cdg='cd /Users/asolanki/trp/git'
+alias cdt='cd /Users/asolanki/trp/git/trp-private'
 alias cdgo='cd /Users/asolanki/trp/git/goldeneye'
 
 alias ls='ls -rtFG'
@@ -22,6 +24,16 @@ alias vim='mvim'
 
 alias ppv='puppet parser validate'
 
+
+alias gs='git status '
+alias ga='git add '
+alias gb='git branch '
+alias gc='git commit -a -m'
+alias gp='git push origin'
+alias gd='git diff'
+alias go='git checkout '
+
+alias kee="cat /Applications/KeePassX/pass.txt"
 # Functions
 function h() { if [ $1 == "--all" ]; then search='^f.*-'; domain=$2; else search='^f.{27,28}$'; domain=$1; fi; host -la ${domain}.fanops.net | awk -F" " '{print $1}' | sed -e 's/\.$//g' | egrep ${search} ;}
 function alh() { if [ "$1" == "--all" ]; then arg=$1; fi; for x in fra1 ams2 iad1 iad2 las1 las2 lab1 lax2 sjc1 hkg1; do h ${arg} ${x} ; done ;}

@@ -27,8 +27,7 @@ call vundle#end()
 """"""""""""""""""
 " Theme Settings "
 """"""""""""""""""
-"colorscheme ColorZone
-colorscheme PaperColor
+colorscheme nightvision
 filetype plugin on
 syntax on
 
@@ -70,7 +69,7 @@ set hlsearch
 
 set cursorline
 set cursorcolumn
-hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white guibg=Grey30 guifg=white
-hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=Grey30 guifg=white
+"hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white guibg=Grey guifg=black
+"hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=Grey guifg=black
 
 cd /Users/asolanki/trp/ 
