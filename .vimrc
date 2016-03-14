@@ -72,4 +72,4 @@ set cursorcolumn
 "hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white guibg=Grey guifg=black
 "hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=Grey guifg=black
 
-cd /Users/asolanki/trp/ 
+cd /Users/asolanki/trp/logs

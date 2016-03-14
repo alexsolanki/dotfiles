@@ -6,6 +6,7 @@ if [ -f "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh" ]; then
 fi
 
 # Aliases
+alias cdl='cd /Users/asolanki/trp/logs'
 alias cdp='cd /Users/asolanki/trp/git/puppet_legacy'
 alias cdr='cd /Users/asolanki/trp/git/puppet_roles'
 alias cdc='cd /Users/asolanki/trp/git/puppet_core'
