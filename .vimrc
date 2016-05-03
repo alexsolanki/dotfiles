@@ -27,7 +27,7 @@ call vundle#end()
 """"""""""""""""""
 " Theme Settings "
 """"""""""""""""""
-colorscheme nightvision
+colorscheme candycode
 filetype plugin on
 syntax on
 
@@ -48,7 +48,7 @@ set ttym=xterm2
 """"""""""""""""""""""""""""""
 "" clipboard
 """"""""""""""""""""""""""""""
-set clipboard=unnamedplus,unnamed,autoselect
+set clipboard=unnamedplus
 
 """""""""""""""""""""
 " Setup vim-airline "
