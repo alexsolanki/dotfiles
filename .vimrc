@@ -31,13 +31,12 @@ set laststatus=2
 let g:airline_powerline_fonts = 1
 let g:airline_theme='kalisi'
 
-"set guifont=Meslo\ LG\ S\ for\ Powerline
-set guifont=Ubuntu\ Mono\ derivative\ Powerline:h13
+set guifont=Ubuntu\ Mono\ derivative\ Powerline:h14
 
 """"""""""""""""""
 " Theme Settings "
 """"""""""""""""""
-colorscheme charon
+colorscheme corn
 filetype plugin on
 syntax on
 set transparency=25
