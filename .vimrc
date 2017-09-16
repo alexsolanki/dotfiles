@@ -15,18 +15,17 @@ call vundle#begin()
 	Plugin 'gmarik/Vundle.vim'
 	Plugin 'scrooloose/syntastic'
     Plugin 'SearchComplete'
-    Plugin 'Xuyuanp/nerdtree-git-plugin'
     Plugin 'belluzj/fantasque-sans'
-    Plugin 'jistr/vim-nerdtree-tabs'
     Plugin 'morhetz/gruvbox'
     Plugin 'python-mode/python-mode'
     Plugin 'rodjek/vim-puppet'
-    Plugin 'scrooloose/nerdtree'
     Plugin 'tpope/vim-fugitive'
+    Plugin 'shumphrey/fugitive-gitlab.vim'
     Plugin 'tpope/vim-git'
     Plugin 'tpope/vim-rhubarb'
     Plugin 'vim-airline/vim-airline'
     Plugin 'vim-airline/vim-airline-themes'
+    Plugin 'kien/ctrlp.vim' 
 
 call vundle#end()
 
@@ -37,7 +36,7 @@ set laststatus=2
 let g:airline_powerline_fonts=1
 let g:airline_theme='cool'
 set guifont=Fantasque\ Sans\ Mono:h14
-set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+set statusline=%<%F\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
 
 """"""""""""""""""
@@ -103,11 +102,12 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-"""""""""""
-" Nerdtree 
-"""""""""""
-set autochdir
-let NERDTreeChDirMode=2
-nnoremap <leader>n :NERDTree .<CR>
+"""""""""""""""""""""""""
+" invoke CtrlP with  dir
+"""""""""""""""""""""""""
+noremap <C-p> :CtrlP /trp/git/puppet/<CR>
 
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+"""""""""""""""""""""""""
+" Fix for Gbrowse
+"""""""""""""""""""""""""
+let g:fugitive_gitlab_domains = ['http://github.rp-core.com']
